@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Todo List</h1>
+    <p>
+        할일: 
+        <input type="text" class="title">
+        <button id="saveBtn">SAVE</button>
+    </p>
+    <p class="resultArea">결과: </p>
+</body>
+<script>
+    var title = document.querySelector(".title");
+    var saveBtn = document.querySelector("#saveBtn");
+    var resultArea = document.querySelector(".resultArea");
+    var todoList = [
+        {no: 1, title: "hello", done: false},
+        {no: 2, title: "hello2", done: false},
+        {no: 3, title: "hello3", done: false},
+        {no: 4, title: "hello4", done: false}
+    ];
+
+    function drawList() {
+        resultArea.innerHTML = "";
+        todoList.forEach(function(todo) {
+            var liTag  = document.createElement("li");
+            liTag.innerText += todo.title + " ";
+            var delBtn = document.createElement("button");
+            delBtn.innerText = "Delete";
+            delBtn.addEventListener('click', function(event){
+                var idx = todoList.findIndex(function(t) {
+                    return t.no === todo.no;
+                });
+                if(idx != -1) {
+                    todoList.splice(idx, 1);
+                    drawList();
+                }
+            });
+            liTag.appendChild(delBtn);
+            resultArea.appendChild(liTag);
+        });
+    }
+
+    drawList();
+
+    function append(){
+        var seqNum = 105;
+        todoList.push(
+            {no: seqNum++, title: title.value, done: false}
+        );
+        title.value = "";
+        title.focus();
+        drawList();
+    }
+
+    saveBtn.onclick = function() {
+        append();
+    }
+
+    title.onkeydown = function(e){
+        if(e.keyCode == 13) {
+            append();
+        }
+    }
+</script>
+</html>
