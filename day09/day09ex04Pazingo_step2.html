@@ -48,9 +48,7 @@
 
 <script>
     // 자신감과 성취감이 일을 하게 한다.
-    function Box() {
-
-    }
+    function Box() { }
     Box.prototype = Object.create(HTMLDivElement.prototype);
     Box.prototype.constructor = Box;
     Box.prototype.init = function(text) {
@@ -68,6 +66,7 @@
     }
     Box.prototype.start = function() {
         this.elementUl.style.position = "absolute";
+        // Element의 좌표 움지임 확인
         this.elementUl.style.left = "30px";
         this.elementUl.style.top = "30px";
     }
